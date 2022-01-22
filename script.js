@@ -1,13 +1,15 @@
 let musicas = [
-    {titulo: 'Through the Fire and Flames', artista:'Dragon Force', src: 'audio/dragon.mp3', img: 'images/dragon.jpg'} ;
-    
-    {titulo: 'Tiny Dancer' , artista: 'Elton John' , src: 'audio/tyni.mp3', img:'images/tiny.jpg'}; 
-
-    {titulo: 'Imagine' , artista:'John Lennon', src: 'audio/imagine.mp3', img:'images/imagine.jpg'};
-];
+    {titulo:'Tiny Dancer' , artista: 'Elton John' , src:'audio/tyni.mp3', img:'./images/tiny.jpg'},
+    {titulo:'Imagine' , artista:'John Lennon', src:'audio/imagine.mp3', img:'./images/imagine.jpg'},
+    {titulo:'Unstoppable', artista:'Sia', src:'audio/sia.mp3', img:'./images/sia.jpg'},
+    {titulo:'Enemy', artista:'Imagine Dragons x J.I.D ', src:'audio/enemy.mp3', img:'./images/enemy.jpg'},
+    {titulo:'Dusk Till Dawn', artista:'ZAYN ft. Sia', src:'audio/zyan.mp3', img:'./images/zyan.jpg'},
+]
 
 
 let musica = document.querySelector('audio');
+
+let indexMusica = 0;
 
 let duracaoMusica = document.querySelector('.fim');
 
@@ -17,10 +19,11 @@ let nomeMusica = document.querySelector('.descricao h2');
 
 let nomeArtista = document.querySelector('.descricao i');
 
-duracaoMusica.textContent =segundosParaminutos(Math.floor(musica.duration));
 
 
+renderizarMusica(indexMusica);
 
+// Eventos
 
 document.querySelector('.botao-play').addEventListener('click', tocarMusica);
 
@@ -28,8 +31,40 @@ document.querySelector('.botao-pause').addEventListener('click', pausarMusica);
 
 musica.addEventListener('timeupdate', atualizarBarra);
 
+document.querySelector('.anterior').addEventListener('click', () => {
+    indexMusica--;
+    renderizarMusica(indexMusica);
+    if (indexMusica < 0){
+        indexMusica = 3;
+    }
+    
+} );
+
+document.querySelector('.proxima').addEventListener('click', () => {
+    indexMusica++;
+    renderizarMusica(indexMusica);
+    if(indexMusica > 3){
+       indexMusica = 0;
+
+    }
+    
+} );
 
 
+// Funcoes
+
+function renderizarMusica(index) {
+    musica.setAttribute('src', musicas[index].src);
+    musica.addEventListener('loadeddata', () => {
+        nomeMusica.textContent = musicas[index].titulo;
+        nomeArtista.textContent = musicas[index].artista;
+        imagem.src = musicas[index].img;
+        duracaoMusica.textContent = segundosParaminutos(Math.floor(musica.duration));
+        
+    });
+
+
+}
 
 function tocarMusica(){
     musica.play();
@@ -61,7 +96,4 @@ function segundosParaminutos(segundos){
 
   }
 return campoMinutos+':'+campoSegundos;
-
-
-
 }
