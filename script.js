@@ -35,7 +35,7 @@ document.querySelector('.anterior').addEventListener('click', () => {
     indexMusica--;
     renderizarMusica(indexMusica);
     if (indexMusica < 0){
-        indexMusica = 3;
+        indexMusica = 4;
     }
     
 } );
@@ -43,7 +43,7 @@ document.querySelector('.anterior').addEventListener('click', () => {
 document.querySelector('.proxima').addEventListener('click', () => {
     indexMusica++;
     renderizarMusica(indexMusica);
-    if(indexMusica > 3){
+    if(indexMusica > 4){
        indexMusica = 0;
 
     }
